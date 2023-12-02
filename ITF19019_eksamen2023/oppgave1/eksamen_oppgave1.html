@@ -1,63 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Eksamen oppgave 1: Kalkulator</title>
-    <link rel="stylesheet" href="font/stylesheet.css">
-    <link rel="stylesheet" href="oppgave1style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="font/stylesheet.css" />
+    <link rel="stylesheet" href="oppgave1style.css" />
+  </head>
+  <body>
     <article>
-        <input type="text" id="calculation" />
-        <div id="keyboard">
-            <div id="numbers">
-                <button id="number-1" value="1" onClick="display('1')">1</button>
-                <button id="number-2" value="2" onClick="display('2')">2</button>
-                <button id="number-3" value="3" onClick="display('3')">3</button>
-                <button id="number-4" value="4" onClick="display('4')">4</button>
-                <button id="number-5" value="5" onClick="display('5')">5</button>
-                <button id="number-6" value="6" onClick="display('6')">6</button>
-                <button id="number-7" value="7" onClick="display('7')">7</button>
-                <button id="number-8" value="8" onClick="display('8')">8</button>
-                <button id="number-9" value="9" onClick="display('9')">9</button>
-                <button id="number-comma" value="." onClick="display(',')">,</button>
-                <button id="number-0" value="0" onClick="display('0')">0</button>
-                <button id="control-clear" onClick="clearScreen()">C</button>
-                
-            </div>
-            <div id="controls">
-                <button id="control-plus" value="+" onClick="display('+')">+</button>
-                <button id="control-minus" value="-" onClick="display('-')">-</button>
-                <button id="control-multiply" value="*" onClick="display('*')">*</button>
-                <button id="control-multiply" value="/" onClick="display('/')">/</button>
-                <button id="control-equal" value="=" onClick="solve()">=</button>
-            </div>
+      <input type="text" id="calculation" />
+      <div id="keyboard">
+        <div id="numbers">
+          <button id="number-1" value="1" onClick="display('1')">1</button>
+          <button id="number-2" value="2" onClick="display('2')">2</button>
+          <button id="number-3" value="3" onClick="display('3')">3</button>
+          <button id="number-4" value="4" onClick="display('4')">4</button>
+          <button id="number-5" value="5" onClick="display('5')">5</button>
+          <button id="number-6" value="6" onClick="display('6')">6</button>
+          <button id="number-7" value="7" onClick="display('7')">7</button>
+          <button id="number-8" value="8" onClick="display('8')">8</button>
+          <button id="number-9" value="9" onClick="display('9')">9</button>
+          <button id="number-comma" value="." onClick="display(',')">,</button>
+          <button id="number-0" value="0" onClick="display('0')">0</button>
+          <button id="control-clear" onClick="clearScreen()">C</button>
         </div>
-        <div id="memory">
-            <p>Memory (<span id="memory-bank">0</span>)</p>
-            <button id="memory-add" onclick="addMemory()">Add</button>
-            <button id="memory-browseback" disabled>Previous</button>
-            <button id="memory-browseforward" disabled>Next</button>
+        <div id="controls">
+          <button id="control-plus" value="+" onClick="display('+')">+</button>
+          <button id="control-minus" value="-" onClick="display('-')">-</button>
+          <button id="control-multiply" value="*" onClick="display('*')">
+            *
+          </button>
+          <button id="control-multiply" value="/" onClick="display('/')">
+            /
+          </button>
+          <button id="control-equal" value="=" onClick="solve()">=</button>
         </div>
+      </div>
+      <div id="memory">
+        <p>Memory (<span id="memory-bank">0</span>)</p>
+        <button id="memory-add" onclick="addMemory()">Add</button>
+        <button id="memory-browseback" disabled>Previous</button>
+        <button id="memory-browseforward" disabled>Next</button>
+      </div>
     </article>
 
     <script>
-        function displey(val) {
-            document.getElementByID("calculatin").value += val
-            return val
-        }
+      function display(val) {
+        /*Display was misspelled*/
+        document.getElementById("calculation").value +=
+          /* change ID to Id*/
+          val; /*calculation was misspelled*/
+        return val;
+      }
 
-        function solve() {
-            let calculation = document.getElementById("calculation").value()
-            let result = eval(calculation)
-            document.getElementById("calculation").value = results
-            return result
-        }
+      function solve() {
+        let calculation =
+          document.getElementById(
+            "calculation"
+          ).value; /*I remove the () because value is a property of the solve function and value is not a function on its own.*/
+        let result = eval(calculation);
+        document.getElementById("calculation").value =
+          result; /*change results to result*/
+        return result;
+      }
+      /* 
+        1. Input Retrieval: The function starts by checking what you've typed into the input field "calculation."
 
-        function clearScreen() {
-            document.getElementById("calculation").value = ""
-        }
+        2. Expression Calculation: - It then takes the mathematical expression you entered and figures out the result of    that expression. This is done using a operator called `eval`.
+
+        3. Updating Display: - Once it knows the result, it updates the input field to show you the answer.
+
+        4. Return result - If you're interested in using the calculated result elsewhere in your program, the function can also give you back that result.
+      */
+
+      function clearScreen() {
+        document.getElementById("calculation").value = "";
+      }
     </script>
-</body>
+  </body>
 </html>
