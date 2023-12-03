@@ -40,7 +40,9 @@
       <div id="memory">
         <p>Memory (<span id="memory-bank">0</span>)</p>
         <button id="memory-add" onclick="addMemory()">Add</button>
-        <button id="memory-browseback" disabled>Previous</button>
+        <button id="memory-browseback" onclick="fetchFromMemory()" disabled>
+          Previous
+        </button>
         <button id="memory-browseforward" disabled>Next</button>
       </div>
     </article>
@@ -63,8 +65,7 @@
         document.getElementById("calculation").value =
           result; /*change results to result*/
         return result;
-      }
-      /* 
+        /* 
         1. Input Retrieval: The function starts by checking what you've typed into the input field "calculation."
 
         2. Expression Calculation: - It then takes the mathematical expression you entered and figures out the result of    that expression. This is done using a operator called `eval`.
@@ -73,6 +74,39 @@
 
         4. Return result - If you're interested in using the calculated result elsewhere in your program, the function can also give you back that result.
       */
+      }
+
+      let memory = []; // This variable and empty array will be responsible for saving the memory items
+      let currentMemoryIndex = -1; // Keeps track of the current index in memory
+
+      function addMemory() {
+        let currentExpression = document.getElementById("calculation").value;
+        // I used getElementById to get the current expression and then used the "push function" to push it to memory.
+        memory.push(currentExpression);
+
+        // I called the updateMemoryCount funtion in other to update the count in the parenthesis.
+        updateMemoryCount();
+
+        console.log("Memory:", memory);
+      }
+
+      function updateMemoryCount() {
+        //this function update the count in parentheses based on the length of the memory array
+        let memoryCount = memory.length;
+        document.getElementById("memory-bank").innerText = memoryCount;
+      }
+
+      /*-----------------------------------Working in here----------------------------------------------------------*/
+      function fetchFromMemory() {
+        if (memory.length > 0) {
+          // Check if there's anything in memory
+          currentMemoryIndex = memory.length - 1; // Set the current index to the last item in memory
+          let lastCalculation = memory[currentMemoryIndex]; // Get the last calculation from memory
+          document.getElementById("calculation").value = lastCalculation; // Display the last calculation on the screen
+        }
+      }
+
+      /*-----------------------------------Working in here----------------------------------------------------------*/
 
       function clearScreen() {
         document.getElementById("calculation").value = "";
