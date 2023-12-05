@@ -40,7 +40,11 @@
       <div id="memory">
         <p>Memory (<span id="memory-bank">0</span>)</p>
         <button id="memory-add" onclick="addMemory()">Add</button>
-        <button id="memory-browseback" onclick="fetchFromMemory()" disabled>
+        <button
+          id="memory-browseback"
+          onclick="fetchFromMemory('back')"
+          disabled
+        >
           Previous
         </button>
         <button id="memory-browseforward" disabled>Next</button>
@@ -65,7 +69,7 @@
         document.getElementById("calculation").value =
           result; /*change results to result*/
         return result;
-        /* 
+        /*
         1. Input Retrieval: The function starts by checking what you've typed into the input field "calculation."
 
         2. Expression Calculation: - It then takes the mathematical expression you entered and figures out the result of    that expression. This is done using a operator called `eval`.
@@ -97,13 +101,41 @@
       }
 
       /*-----------------------------------Working in here----------------------------------------------------------*/
-      function fetchFromMemory() {
+      /*
+       function fetchFromMemory() {
         if (memory.length > 0) {
           // Check if there's anything in memory
           currentMemoryIndex = memory.length - 1; // Set the current index to the last item in memory
           let lastCalculation = memory[currentMemoryIndex]; // Get the last calculation from memory
           document.getElementById("calculation").value = lastCalculation; // Display the last calculation on the screen
         }
+      }
+
+      */
+
+      function memoryBrowse(direction) {
+        if (direction === "back" && currentMemoryIndex > 0) {
+          currentMemoryIndex--;
+        } else if (
+          direction === "forward" &&
+          currentMemoryIndex < memory.length - 1
+        ) {
+          currentMemoryIndex++;
+        }
+        updateCalculationFromMemory();
+      }
+
+      function updateCalculationFromMemory() {
+        document.getElementById("calculation").value =
+          memory[currentMemoryIndex];
+        enabbleMemoryButtons();
+      }
+
+      function enabbleMemoryButtons() {
+        document.getElementById("memory-browseback").disable =
+          currentMemoryIndex === 0;
+        document.getElementById("memory-browseforward").disable =
+          currentMemoryIndex === memory.length - 1;
       }
 
       /*-----------------------------------Working in here----------------------------------------------------------*/

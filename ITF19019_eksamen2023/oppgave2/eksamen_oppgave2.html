@@ -1,69 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Eksamen i Innføring i Programmering - oppgave 2</title>
-    <link rel="stylesheet" href="oppgave2style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="oppgave2style.css" />
+  </head>
+  <body>
     <main>
-        <nav>
-            <h2>Controls</h2>
-            <p><span class="buttonIllustration" id="sbutton">S</span> Add a square</p>
-            <p><span class="buttonIllustration" id="cbutton">C</span> Add a circle</p>
-            <p><span class="buttonIllustration" id="rbutton">R</span> Remove random element</p>
-            <h2>Number of elements</h2>
-            <ul>
-                <li>Squares: <span id="squareCount">0</span></li>
-                <li>Circles: <span id="circleCount">0</span></li>
-                <li>Total: <span id="totalCount">0</span></li>
-            </ul>
-        </nav>
-        <canvas id="drawArea"></canvas>
+      <nav>
+        <h2>Controls</h2>
+        <p>
+          <span class="buttonIllustration" id="sbutton">S</span> Add a square
+        </p>
+        <p>
+          <span class="buttonIllustration" id="cbutton">C</span> Add a circle
+        </p>
+        <p>
+          <span class="buttonIllustration" id="rbutton">R</span> Remove random
+          element
+        </p>
+        <h2>Number of elements</h2>
+        <ul>
+          <li>Squares: <span id="squareCount">0</span></li>
+          <li>Circles: <span id="circleCount">0</span></li>
+          <li>Total: <span id="totalCount">0</span></li>
+        </ul>
+        <h2>User Activity</h2>
+        <p>Active Time: <span id="activeTime">0s</span></p>
+        <p>
+          Average Elements Per Second:
+          <span id="averageElementsPerSecond">0.00</span>
+        </p>
+      </nav>
+      <canvas id="drawArea"></canvas>
     </main>
 
+    <!-- ... Your existing HTML code ... -->
+
     <script>
-        //INITIATE CANVAS
-        //Canvas width: 600, Canvas height: 500
-        const canvas = document.getElementById("drawArea")
-        canvas.width = 600
-        canvas.height = 500
-        const ctx = canvas.getContext("2d")
+      // INITIATE CANVAS
+      // Canvas width: 600, Canvas height: 500
+      const canvas = document.getElementById("drawArea");
+      canvas.width = 600;
+      canvas.height = 500;
+      const ctx = canvas.getContext("2d");
 
-        //TODO: Storage of multiple element objects (Grade C and above)
-        const elements = [
-            {type: "square", x: 23, y: 220},
-            {type: "circle", x: 381, y: 444}
-        ]
+      // Storage of multiple element objects
+      const elements = [
+        { type: "square", x: 23, y: 220 },
+        { type: "circle", x: 381, y: 444 },
+      ];
+      // Variables to track user activity
+      let startTime = new Date().getTime(); // Initial time when the user starts
+      let totalElementsAdded = 0; // Total elements added during user activity
+      let intervalId; // Variable to store the interval ID
 
-        //TODO: Function to add an element of parameter type 'square' or 'circle':
-        
+      // Function to update counters based on user activity
+      function updateActivityCounters() {
+        const currentTime = new Date().getTime();
+        const elapsedTimeInSeconds = Math.floor(
+          (currentTime - startTime) / 1000
+        );
 
-        //TODO: Function to remove random element:
-        
+        // Update time counter
+        document.getElementById("activeTime").textContent =
+          elapsedTimeInSeconds + "s";
 
-        //TODO: EventListeners to track user input:
+        // Calculate average elements per second
+        const averageElementsPerSecond =
+          totalElementsAdded / elapsedTimeInSeconds || 0;
 
+        // Update average elements counter
+        document.getElementById("averageElementsPerSecond").textContent =
+          averageElementsPerSecond.toFixed(2);
+      }
 
-        //TODO: Count the element types and total and print to interface
+      // Set up interval to update counters every second
+      function startInterval() {
+        intervalId = setInterval(updateActivityCounters, 1000);
+      }
 
-        
-        //Function to draw on canvas:
-        function renderDrawings() {
-            //Clear the rectangle
-            ctx.clearRect(0, 0, canvas.width, canvas.height)
+      // Function to add an element of parameter type 'square' or 'circle':
+      function addElement(type) {
+        const newElement = {
+          type: type,
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+        };
+        elements.push(newElement);
+        updateElementCounts();
+      }
 
-            //TODO: Draw the elements on canvas:
-
-
-            //Testprint:
-            console.log("Currently drawing frames...")
-            //Use requestAnimationFrame to re-run renderDrawings-function
-            requestAnimationFrame(renderDrawings)
+      // Function to remove random element:
+      function removeRandomElement() {
+        if (elements.length > 0) {
+          const randomIndex = Math.floor(Math.random() * elements.length);
+          elements.splice(randomIndex, 1);
+          updateElementCounts();
         }
-        //Start drawing
-        renderDrawings()
+      }
+
+      // EventListeners to track user input:
+      document.getElementById("sbutton").addEventListener("click", function () {
+        addElement("square");
+        renderDrawings();
+      });
+
+      document.getElementById("cbutton").addEventListener("click", function () {
+        addElement("circle");
+        renderDrawings();
+      });
+
+      document.getElementById("rbutton").addEventListener("click", function () {
+        removeRandomElement();
+        renderDrawings();
+      });
+
+      // Listen for keydown events
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "s" || event.key === "S") {
+          addElement("square");
+          renderDrawings();
+        } else if (event.key === "c" || event.key === "C") {
+          addElement("circle");
+          renderDrawings();
+        } else if (event.key === "r" || event.key === "R") {
+          removeRandomElement();
+          renderDrawings();
+        }
+      });
+
+      // Count the element types and total and print to interface
+      function updateElementCounts() {
+        const squareCount = elements.filter(
+          (el) => el.type === "square"
+        ).length;
+        const circleCount = elements.filter(
+          (el) => el.type === "circle"
+        ).length;
+        const totalCount = elements.length;
+
+        document.getElementById("squareCount").textContent = squareCount;
+        document.getElementById("circleCount").textContent = circleCount;
+        document.getElementById("totalCount").textContent = totalCount;
+      }
+
+      // Function to draw on canvas:
+      function renderDrawings() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawElements();
+
+        // Test print:
+        console.log("Currently drawing frames...");
+
+        // Use requestAnimationFrame to re-run renderDrawings-function
+        requestAnimationFrame(renderDrawings);
+      }
+
+      // Call renderDrawings initially to draw the existing elements
+      renderDrawings();
+
+      // Function to draw the elements on canvas:
+      function drawElements() {
+        elements.forEach((el) => {
+          if (el.type === "square") {
+            ctx.fillStyle = "blue";
+            ctx.fillRect(el.x, el.y, 15, 15);
+          } else if (el.type === "circle") {
+            ctx.fillStyle = "yellow";
+            ctx.beginPath();
+            ctx.arc(el.x, el.y, 10, 0, 2 * Math.PI);
+            ctx.fill();
+          }
+        });
+      }
+      // Call the function initially to set up the counters
+      updateActivityCounters();
+      // Clear the existing interval
+      clearInterval(intervalId);
+
+      // Start the interval again
+      startInterval();
     </script>
-</body>
+  </body>
 </html>
