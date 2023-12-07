@@ -40,80 +40,68 @@
       <div id="memory">
         <p>Memory (<span id="memory-bank">0</span>)</p>
         <button id="memory-add" onclick="addMemory()">Add</button>
+        <!-- 
+        I added the data-enabled attribute to the browesback and brosweforward
+        button to be able to track the states of these buttons.
+        -->
         <button
           id="memory-browseback"
           onclick="fetchFromMemory('back')"
           disabled
+          data-enabled="false"
         >
           Previous
         </button>
-        <button id="memory-browseforward" disabled>Next</button>
+        <button
+          id="memory-browseforward"
+          onclick="fetchFromMemory('forward')"
+          disabled
+          data-enabled="false"
+        >
+          Next
+        </button>
       </div>
     </article>
-
     <script>
       function display(val) {
-        /*Display was misspelled*/
+        // Display was misspelled
         document.getElementById("calculation").value +=
-          /* change ID to Id*/
-          val; /*calculation was misspelled*/
+          // change ID to Id
+          val; //calculation was misspelled
         return val;
       }
-
       function solve() {
-        let calculation =
-          document.getElementById(
-            "calculation"
-          ).value; /*I remove the () because value is a property of the solve function and value is not a function on its own.*/
+        let calculation = document.getElementById("calculation").value; // I remove the () because value is a property of the solve function and value is not a function on its own.
         let result = eval(calculation);
-        document.getElementById("calculation").value =
-          result; /*change results to result*/
+        document.getElementById("calculation").value = result; // change results to result
         return result;
-        /*
+        /* Solve function explain
+
         1. Input Retrieval: The function starts by checking what you've typed into the input field "calculation."
 
         2. Expression Calculation: - It then takes the mathematical expression you entered and figures out the result of    that expression. This is done using a operator called `eval`.
 
         3. Updating Display: - Once it knows the result, it updates the input field to show you the answer.
 
-        4. Return result - If you're interested in using the calculated result elsewhere in your program, the function can also give you back that result.
+        4. Return result - This give you the option to later reuse the result.
       */
       }
-
       let memory = []; // This variable and empty array will be responsible for saving the memory items
       let currentMemoryIndex = -1; // Keeps track of the current index in memory
-
       function addMemory() {
         let currentExpression = document.getElementById("calculation").value;
         // I used getElementById to get the current expression and then used the "push function" to push it to memory.
         memory.push(currentExpression);
-
-        // I called the updateMemoryCount funtion in other to update the count in the parenthesis.
+        // I called the updateMemoryCount function in other to update the count in the parenthesis.
         updateMemoryCount();
-
         console.log("Memory:", memory);
       }
-
       function updateMemoryCount() {
         //this function update the count in parentheses based on the length of the memory array
         let memoryCount = memory.length;
         document.getElementById("memory-bank").innerText = memoryCount;
       }
-
-      /*-----------------------------------Working in here----------------------------------------------------------*/
-      /*
-       function fetchFromMemory() {
-        if (memory.length > 0) {
-          // Check if there's anything in memory
-          currentMemoryIndex = memory.length - 1; // Set the current index to the last item in memory
-          let lastCalculation = memory[currentMemoryIndex]; // Get the last calculation from memory
-          document.getElementById("calculation").value = lastCalculation; // Display the last calculation on the screen
-        }
-      }
-
-      */
-
-      function memoryBrowse(direction) {
+      function fetchFromMemory(direction) {
         if (direction === "back" && currentMemoryIndex > 0) {
           currentMemoryIndex--;
         } else if (
@@ -123,23 +111,48 @@
           currentMemoryIndex++;
         }
         updateCalculationFromMemory();
+        enableMemoryButtons(); // Enable/disable buttons after updating memory index
       }
-
       function updateCalculationFromMemory() {
         document.getElementById("calculation").value =
           memory[currentMemoryIndex];
-        enabbleMemoryButtons();
       }
-
-      function enabbleMemoryButtons() {
-        document.getElementById("memory-browseback").disable =
-          currentMemoryIndex === 0;
-        document.getElementById("memory-browseforward").disable =
+      function enableMemoryButtons() {
+        const memoryBrowseBackButton =
+          document.getElementById("memory-browseback");
+        const memoryBrowseForwardButton = document.getElementById(
+          "memory-browseforward"
+        );
+        // Enable the Previous button if there are items to go back to
+        memoryBrowseBackButton.disabled = currentMemoryIndex === -1;
+        // Enable the Next button if there are items to go forward to
+        memoryBrowseForwardButton.disabled =
           currentMemoryIndex === memory.length - 1;
+        // Update the data-enabled attribute for the Previous button
+        memoryBrowseBackButton.dataset.enabled =
+          !memoryBrowseBackButton.disabled;
+        // Update the data-enabled attribute for the Next button
+        memoryBrowseForwardButton.dataset.enabled =
+          !memoryBrowseForwardButton.disabled;
+        // Disable the Previous button if there is no more memory to go back to
+        if (memory.length === 0 || currentMemoryIndex === -1) {
+          memoryBrowseBackButton.disabled = true;
+          memoryBrowseBackButton.dataset.enabled = false;
+        }
       }
-
-      /*-----------------------------------Working in here----------------------------------------------------------*/
-
+      function addMemory() {
+        let currentExpression = document.getElementById("calculation").value;
+        memory.push(currentExpression);
+        currentMemoryIndex = memory.length - 1; // Update currentMemoryIndex to the latest index
+        updateMemoryCount();
+        console.log("Memory:", memory);
+        enableMemoryButtons(); // Enable the Previous button after adding to memory
+      }
+      function updateMemoryCount() {
+        // This function updates the count in parentheses based on the length of the memory array
+        let memoryCount = memory.length;
+        document.getElementById("memory-bank").innerText = memoryCount;
+      }
       function clearScreen() {
         document.getElementById("calculation").value = "";
       }

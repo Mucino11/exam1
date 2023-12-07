@@ -19,11 +19,9 @@
                 </ul>
             </nav>
             <h2 id="listHeader">Showing all Staff</h2>
-            <div id="staffList">
-                
+            <div id="staffList" >     
             </div>
         </section>
-
         <section id="admin">
             <div class="form">
                 <h2>Add staff</h2>
@@ -36,14 +34,12 @@
                     <input type="text" name="lastname" id="lastname" placeholder="Lastname" /></p>
                 <p>
                     <label for="position">Position</label>
-                    <select id="position" name="postition">
-                       
+                    <select id="position" name="position">    
                     </select>
                 </p>
                 <p>
                     <label for="department">Department</label>
-                    <select id="department" name="department">
-                        
+                    <select id="department" name="department">         
                     </select>
                 </p>
                 <p>
@@ -57,8 +53,7 @@
                     <label for="newPosition">Position</label><input type="text" name="newPosition" id="newPosition" placeholder="Position" />
                 </p>
                 <button id="savePosition" onClick="newPosition()">Save new position</button>
-            </div>
-            
+            </div> 
             <div class="form">
                 <h2>Add department</h2>
                 <p>
@@ -69,164 +64,6 @@
         </section>
     </main>
     <script>
-        /*
-    //Array of staff objects
-    const staff = [
-            {firstname: "Bill", lastname: "Gates", position: "Director", department: "Administration", email: "bill@gates.net"},
-        ];
-
-        //Array of available positions
-        const positions = ["Director", "Team leader", "Producer", "Engineer", "Designer"];
-
-        //Array of available departments
-        const departments = ["Administration", "Human Resources", "Production", "Finances"];
-
-        // Function to display staff list
-        function displayStaffList() {
-            const staffListDiv = document.getElementById('staffList');
-            staffListDiv.innerHTML = ''; // Clear previous content
-
-            staff.forEach(employee => {
-                const employeeDiv = document.createElement('div');
-                employeeDiv.innerHTML = `<p>${employee.firstname} ${employee.lastname} - ${employee.position}, ${employee.department}, ${employee.email}</p>`;
-                staffListDiv.appendChild(employeeDiv);
-            });
-        }
-
-        // Initial display
-        displayStaffList();
-
-        document.getElementById('saveStaff').addEventListener('click', function() {
-            const firstname = document.getElementById('firstname').value;
-            const lastname = document.getElementById('lastname').value;
-            const position = document.getElementById('position').value;
-            const department = document.getElementById('department').value;
-            const email = document.getElementById('email').value;
-            
-            // Check if all fields are filled
-            if (!firstname || !lastname || !position || !department || !email) {
-                alert('Please fill in all fields.'); // Display an alert or use a more sophisticated error handling method
-                return;
-            }
-
-            // Validate email format
-            if (!isValidEmail(email)) {
-                alert('Please enter a valid email address.');
-                return;
-            }
-
-            // Add new employee to staff array
-            staff.push({ firstname, lastname, position, department, email });
-
-            // Update staff list
-            displayStaffList();
-        });
-
-        // Function to validate email format
-    function isValidEmail(email) {
-    // expression for email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-
-        // Sort positions and departments alphabetically
-        positions.sort();
-        departments.sort();
-
-        document.getElementById('saveDepartment').addEventListener('click', function() {
-            const newDepartment = document.getElementById('newDepartment').value;
-            departments.push(newDepartment);
-
-            // Sort departments alphabetically
-            departments.sort();
-
-            // Update department dropdown
-            updateDepartmentDropdown();
-
-            // Clear input field
-            document.getElementById('newDepartment').value = '';
-        });
-
-        // Function to update department dropdown
-        function updateDepartmentDropdown() {
-            const departmentDropdown = document.getElementById('department');
-            departmentDropdown.innerHTML = '';
-            departments.forEach(dep => {
-                const option = document.createElement('option');
-                option.value = dep;
-                option.text = dep;
-                departmentDropdown.appendChild(option);
-            });
-        }
-
-        document.getElementById('savePosition').addEventListener('click', function() {
-            const newPosition = document.getElementById('newPosition').value;
-            positions.push(newPosition);
-
-            // Sort positions alphabetically
-            positions.sort();
-
-            // Update position dropdown
-            updatePositionDropdown();
-
-            // Update position filter menu
-            generatePositionFilter();
-
-            // Clear input field
-            document.getElementById('newPosition').value = '';
-        });
-
-        // Function to update position dropdown
-        function updatePositionDropdown() {
-            const positionDropdown = document.getElementById('position');
-            positionDropdown.innerHTML = '';
-            positions.forEach(pos => {
-                const option = document.createElement('option');
-                option.value = pos;
-                option.text = pos;
-                positionDropdown.appendChild(option);
-            });
-        }
-
-        // Function to generate position filter menu
-        function generatePositionFilter() {
-            const positionFilter = document.getElementById('positionFilter');
-            positionFilter.innerHTML = '<li><button class="all active">All positions</button></li>';
-
-            positions.forEach(pos => {
-                const button = document.createElement('button');
-                button.textContent = pos;
-                positionFilter.appendChild(document.createElement('li').appendChild(button));
-            });
-        }
-
-        document.getElementById('positionFilter').addEventListener('click', function(event) {
-            if (event.target.tagName === 'BUTTON') {
-                const selectedPosition = event.target.textContent;
-                filterStaffByPosition(selectedPosition);
-            }
-        });
-
-        // Function to filter staff by position
-        function filterStaffByPosition(position) {
-            const filteredStaff = position === 'All positions' ? staff : staff.filter(employee => employee.position === position);
-            displayStaffList(filteredStaff);
-
-            // Update header
-            document.getElementById('listHeader').textContent = `Showing ${filteredStaff.length} employee${filteredStaff.length !== 1 ? 's' : ''} with position ${position}`;
-        }
-
-        // Sort staff array based on last name
-        staff.sort((a, b) => a.lastname.localeCompare(b.lastname));
-
-        // Initial generation
-        generatePositionFilter();
-        updateDepartmentDropdown();
-        updatePositionDropdown();
-        */
-
-      
     // Array of staff objects
     const staff = [
         { firstname: "Bill", lastname: "Gates", position: "Director", department: "Administration", email: "bill@gates.net" },
@@ -238,22 +75,60 @@
     // Array of available departments
     const departments = ["Administration", "Human Resources", "Production", "Finances"];
 
-    // Function to display staff list
-    function displayStaffList() {
-        const staffListDiv = document.getElementById('staffList');
-        staffListDiv.innerHTML = ''; // Clear previous content
+// Function to display staff list
+function displayStaffList() {
+    // Get the element with the ID 'staffList' from the HTML
+    const staffListDiv = document.getElementById('staffList');
 
-        staff.forEach(employee => {
-            const employeeParagraph = document.createElement('p');
-            employeeParagraph.textContent = `${employee.firstname} ${employee.lastname} - ${employee.position}, ${employee.department}, ${employee.email}`;
-            staffListDiv.appendChild(employeeParagraph);
-        });
-    }
+    // Clear any existing content within the 'staffListDiv'
+    staffListDiv.innerHTML = '';
 
+    // Loop through each employee in the 'staff' array
+    // I use format from register_HTML.html file to create the employees card using javascript here below.
+    staff.forEach(employee => {
+        // Create a new 'article' element for each employee
+        const memberCard = document.createElement('article');
+        memberCard.classList.add('membercard');
+        memberCard.id = `staffmember-${staff.indexOf(employee)}`;
 
+        // Create an 'h3' element for the employee name
+        const nameHeader = document.createElement('h3');
+        nameHeader.textContent = `${employee.lastname}, ${employee.firstname}`;
+        
+        // Create a 'p' element with the class 'metainfo' for position and department
+        const metaInfoParagraph = document.createElement('p');
+        metaInfoParagraph.classList.add('metainfo');
+        
+        // Create 'img' elements for position and department icons
+        const positionIcon = document.createElement('img');
+        positionIcon.src = 'posicon.png';
+        const departmentIcon = document.createElement('img');
+        departmentIcon.src = 'depicon.png';
+
+        // Set the text content for position and department
+        metaInfoParagraph.appendChild(positionIcon);
+        metaInfoParagraph.appendChild(document.createTextNode(` ${employee.position}`));
+        metaInfoParagraph.appendChild(departmentIcon);
+        metaInfoParagraph.appendChild(document.createTextNode(` ${employee.department}`));
+
+        // Create a 'p' element for sending mail
+        const mailParagraph = document.createElement('p');
+        const mailLink = document.createElement('a');
+        mailLink.href = `mailto:${employee.email}`;
+        mailLink.innerHTML = `<img src="mailicon.png"> Send mail to ${employee.firstname}`;
+        mailParagraph.appendChild(mailLink);
+
+        // Append all elements to the 'article' element
+        memberCard.appendChild(nameHeader);
+        memberCard.appendChild(metaInfoParagraph);
+        memberCard.appendChild(mailParagraph);
+
+        // Append the created 'article' to the 'staffListDiv'
+        staffListDiv.appendChild(memberCard);
+    });
+}
     // Initial display
     displayStaffList();
-
     document.getElementById('saveStaff').addEventListener('click', function () {
         const firstname = document.getElementById('firstname').value;
         const lastname = document.getElementById('lastname').value;
@@ -279,28 +154,22 @@
         // Update staff list
         displayStaffList();
     });
-
     // Function to validate email format
     function isValidEmail(email) {
         // expression for email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     }
-
     // Sort positions and departments alphabetically
     positions.sort();
     departments.sort();
-
     document.getElementById('saveDepartment').addEventListener('click', function () {
         const newDepartment = document.getElementById('newDepartment').value;
         departments.push(newDepartment);
-
         // Sort departments alphabetically
         departments.sort();
-
         // Update department dropdown
         updateDepartmentDropdown();
-
         // Clear input field
         document.getElementById('newDepartment').value = '';
     });
@@ -316,24 +185,18 @@
             departmentDropdown.appendChild(option);
         });
     }
-
     document.getElementById('savePosition').addEventListener('click', function () {
         const newPosition = document.getElementById('newPosition').value;
         positions.push(newPosition);
-
         // Sort positions alphabetically
         positions.sort();
-
         // Update position dropdown
         updatePositionDropdown();
-
         // Update position filter menu
         generatePositionFilter();
-
         // Clear input field
         document.getElementById('newPosition').value = '';
     });
-
     // Function to update position dropdown
     function updatePositionDropdown() {
         const positionDropdown = document.getElementById('position');
@@ -345,46 +208,36 @@
             positionDropdown.appendChild(option);
         });
     }
-
     // Function to generate position filter menu
     function generatePositionFilter() {
         const positionFilter = document.getElementById('positionFilter');
         positionFilter.innerHTML = '<li><button class="all active">All positions</button></li>';
-
         positions.forEach(pos => {
             const button = document.createElement('button');
             button.textContent = pos;
             positionFilter.appendChild(document.createElement('li').appendChild(button));
         });
     }
-
     document.getElementById('positionFilter').addEventListener('click', function (event) {
         if (event.target.tagName === 'BUTTON') {
             const selectedPosition = event.target.textContent;
             filterStaffByPosition(selectedPosition);
         }
     });
-
     // Function to filter staff by position
     function filterStaffByPosition(position) {
         const filteredStaff = position === 'All positions' ? staff : staff.filter(employee => employee.position === position);
         displayStaffList(filteredStaff);
-
         // Update header
         document.getElementById('listHeader').textContent = `Showing ${filteredStaff.length} employee${filteredStaff.length !== 1 ? 's' : ''} with position ${position}`;
     }
-
     // Sort staff array based on last name
     staff.sort((a, b) => a.lastname.localeCompare(b.lastname));
-
     // Initial generation
     generatePositionFilter();
     updateDepartmentDropdown();
     updatePositionDropdown();
-
-
     </script>
-    
 </body>
 </html>
 

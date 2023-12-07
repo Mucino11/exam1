@@ -36,8 +36,6 @@
       <canvas id="drawArea"></canvas>
     </main>
 
-    <!-- ... Your existing HTML code ... -->
-
     <script>
       // INITIATE CANVAS
       // Canvas width: 600, Canvas height: 500
@@ -67,7 +65,8 @@
         document.getElementById("activeTime").textContent =
           elapsedTimeInSeconds + "s";
 
-        // Calculate average elements per second
+        // Calculate average elements per second.
+        // My thought here were to take the total amount of element added and divide it by the amount of time elapsed to get the average element per second. But it is not working as I am thinking but I am not quite sure where I went wrong.
         const averageElementsPerSecond =
           totalElementsAdded / elapsedTimeInSeconds || 0;
 
