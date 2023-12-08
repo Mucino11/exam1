@@ -66,8 +66,8 @@
       function display(val) {
         // Display was misspelled
         document.getElementById("calculation").value +=
-          // change ID to Id
-          val; //calculation was misspelled
+          // change ID to Id and calculation was misspelled
+          val;
         return val;
       }
       function solve() {
@@ -76,13 +76,9 @@
         document.getElementById("calculation").value = result; // change results to result
         return result;
         /* Solve function explain
-
         1. Input Retrieval: The function starts by checking what you've typed into the input field "calculation."
-
         2. Expression Calculation: - It then takes the mathematical expression you entered and figures out the result of    that expression. This is done using a operator called `eval`.
-
         3. Updating Display: - Once it knows the result, it updates the input field to show you the answer.
-
         4. Return result - This give you the option to later reuse the result.
       */
       }
@@ -135,7 +131,7 @@
         memoryBrowseForwardButton.dataset.enabled =
           !memoryBrowseForwardButton.disabled;
         // Disable the Previous button if there is no more memory to go back to
-        if (memory.length === 0 || currentMemoryIndex === -1) {
+        if (memory.length === 0 || currentMemoryIndex === 0) {
           memoryBrowseBackButton.disabled = true;
           memoryBrowseBackButton.dataset.enabled = false;
         }

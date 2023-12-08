@@ -84,7 +84,7 @@ function displayStaffList() {
     staffListDiv.innerHTML = '';
 
     // Loop through each employee in the 'staff' array
-    // I use format from register_HTML.html file to create the employees card using javascript here below.
+    // I use the format from register_HTML.html file to create the employees card using javascript here below.
     staff.forEach(employee => {
         // Create a new 'article' element for each employee
         const memberCard = document.createElement('article');
@@ -208,16 +208,30 @@ function displayStaffList() {
             positionDropdown.appendChild(option);
         });
     }
+
     // Function to generate position filter menu
     function generatePositionFilter() {
-        const positionFilter = document.getElementById('positionFilter');
-        positionFilter.innerHTML = '<li><button class="all active">All positions</button></li>';
-        positions.forEach(pos => {
-            const button = document.createElement('button');
-            button.textContent = pos;
-            positionFilter.appendChild(document.createElement('li').appendChild(button));
+    const positionFilter = document.getElementById('positionFilter');
+    positionFilter.innerHTML = '<li><button class="all active">All positions</button></li>';
+    positions.forEach(pos => {
+        const button = document.createElement('button');
+        button.textContent = pos;
+        positionFilter.appendChild(document.createElement('li').appendChild(button));
+
+        // Add event listener to handle position filter button clicks
+        button.addEventListener('click', function () {
+            // Remove 'active' class from all buttons
+            document.querySelectorAll('#positionFilter button').forEach(btn => btn.classList.remove('active'));
+
+            // Add 'active' class to the clicked button
+            button.classList.add('active');
+
+            // Filter staff based on the selected position
+            filterStaffByPosition(pos);
         });
-    }
+    });
+}
+
     document.getElementById('positionFilter').addEventListener('click', function (event) {
         if (event.target.tagName === 'BUTTON') {
             const selectedPosition = event.target.textContent;
